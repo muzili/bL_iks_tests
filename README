@@ -9,9 +9,8 @@ and vice versa. It is compatible for both Android and Ubuntu.
 Get the source
 --------------
 
-https://linaro-private.git.linaro.org/gitweb?p=bL_tests/core-tests.git
-git clone ssh://username@linaro-private.git.linaro.org/srv/
-linaro-private.git.linaro.org/bL_tests/core-tests.git
+https://git.linaro.org/qa/bL_iks_tests.git
+git clone ssh://git@git.linaro.org/qa/bL_iks_tests.git
 
 In the Package
 --------------
