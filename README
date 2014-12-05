@@ -1,0 +1,144 @@
+big.LITTLE switcher test suite
+------------------------------
+
+This test suite has been developed by Linaro. The goal of this test suite is
+to test big.LITTLE switching functionality and stress tests. The main focus
+is to test big.LITTLE switching while system switches it cores from A15 to A7
+and vice versa. It is compatible for both Android and Ubuntu.
+
+Get the source
+--------------
+
+https://linaro-private.git.linaro.org/gitweb?p=bL_tests/core-tests.git
+git clone ssh://username@linaro-private.git.linaro.org/srv/
+linaro-private.git.linaro.org/bL_tests/core-tests.git
+
+In the Package
+--------------
+
+Here is a short description of what is included in this package
+Android.mk
+        Android make support file
+android-prebuilts/*
+        Holds android pre-built ARM binary file bl-agitator. which will be
+        used by other test scripts for switching testcases.
+basic/*
+        Collections of basic big.LITTLE test
+bl-agitator/*
+        big.LITTLE agitator build support files
+boot-a15
+       This script ensures the given cores are running on a15
+boot-a7
+       This script ensures the given cores are running on a7
+cache-coherency-switcher
+        Test script to test cache-coherency among switching cores
+cpu_freq_vs_cluster_freq
+        Test script to test cpu freq in a given cluster should match with all
+        cpus belongs to the same cluster.
+data-corruption
+        Test case is to test data corruption with the help of md5sum
+data-corruption-switcher
+        This file is a collection of date corruption, random and periodic
+        switch test cases.
+disk-io-stress-switcher
+        This file is a collection of iozone, random and periodic switch test
+        cases.
+vfp-ffmpeg
+	This file is to test vfp feature in kernel by using ffmpeg tool.
+vfp-ffmpeg-switcher
+	This file is to test vfp feature in kernel by using ffmpeg tool
+	while random and periodic switching happens.
+install-scripts-android.sh
+        To install pre-built testcase on to MMC
+interactive-governor-test.sh
+        This test sets the interactive, or ondemand governor as appropriate,
+        and uses a tool to create stress on the system, and make sure that
+        the system automatically responds by moving cpus over to big, then
+        back to little when it's done. 
+Makefile
+        To make and install
+mem-stress-switcher
+        This is pre-built binary memtester along with bigLITTLE switcher
+README
+        This document
+run_stress_switcher_tests.sh
+        A simple shell script to run all the test in sequence and report the
+        overall results
+perf-count-events
+        Test to count the perf events on clusters A7, A15 and switcher mode.
+        
+Usage information
+-----------------
+
+These test cases would be available along with linaro development images of
+Ubuntu and Android.
+
+Find out these testscript location
+# which run_stress_switcher_tests.sh
+
+For usage information on each test script run xxxxfile.sh --help
+Example:
+# run_stress_switcher_tests.sh --help
+# mem-stress-switcher.sh --help
+
+complete run
+-------------
+
+It may take couple of hours, double check before you start
+# run_stress_switcher_tests.sh -a
+
+Individual run
+--------------
+
+# run_stress_switcher_tests.sh
+        usage: $0 [<option> <argument>] ..
+        Options: -a [Run all tests]
+                 -b [Run all basic module and switcher tests]
+                 -c [Run all cache-coherency tests]
+                 -d [Run all data-corruption tests]
+                 -i [Run all disk-io tests]
+                 -g [Run all governor tests]
+                 -m [Run all memory tests]
+                 -s [Run only switcher tests]
+                 -t <specify the test-id(s)> [Run the specified tests]
+                    [ 1 : cache-coherency-a7]
+                    [ 2 : cache-coherency-a15]
+                    [ 3 : cache-coherency-switching]
+                    [ 4 : data-corruption-a7]
+                    [ 5 : data-corruption-a15]
+                    [ 6 : data-corruption-switching]
+                    [ 7 : disk-io-stress-a7]
+                    [ 8 : disk-io-stress-a15]
+                    [ 9 : disk-io-stress-switching]
+                    [10 : mem-stress-a7]
+                    [11 : mem-stress-a15]
+                    [12 : mem-stress-switching]
+                    [13 : bl-basic-tests]
+                    [14 : switcher-tests]
+                    [15 : interactive-governor-test]
+
+Results
+-------
+
+Full run test results summary
+# run_stress_switcher_tests.sh -a
+Summary ..
+Total Tests = 30
+Tests Passed = 30
+Tests Failed = 0 
+
+Environment
+-----------
+
+Currently it can be run on four platforms
+1. Ubuntu w/ Reference switcher
+2. Android w/ Reference Switcher
+3. Ubuntu w/ Integrated switcher
+4. Android w/ Integrated Switcher
+
+Contact info
+------------
+
+Contact for more info and queries on the status of the project:
+Naresh Kamboju <naresh.kamboju@linaro.org>
+

@@ -1,0 +1,77 @@
+Current test suite is designed for TC2 Hardware and RTSM (Fast-models).
+We currently in a process of making this test suite run on all kind of 
+members platform.
+
+Following changes needs to be done to run other than TC2 and RTSM platforms
+
+1. “run_stress_switcher_tests.sh’
+
+code snippet
+------------
+
+        #TODO
+        # For TC2
+        if [ "$MODEL" = "V2P-CA15_CA7" ]; then
+                EACH_CPU="-c 0 -c 1"
+                NO_OF_CPUS="-n 0 1"
+        # For RTSM
+        else if [ "$MODEL" = "RTSM_VE_CortexA15x4-A7x4" ]; then
+                EACH_CPU="-c 0 -c 1 -c 2 -c 3"
+                NO_OF_CPUS="-n 0 1 2 3"
+        else
+                echo " Unknown architecture"
+                echo " Please add your architecture or model"
+                echo " Provide number of cpu info"
+                exit 1
+        fi
+        fi
+
+
+2. All switcher files
+
+This has limitation up to 4 cpus.
+if your platform has more than 4 cpus add extra cpu list here and
+
+        -n|--thread-switching)
+                if [ $(echo "$2" | grep -E "^[0-$large_cpu_number]+$") ]; then
+                        THREAD_CPU0="-c $2";
+                        shift;
+                else
+                        echo "Error: Must specify at least one CPU on which thread has to be spawned"
+                        usage
+                fi
+                if [ $(echo "$2" | grep -E "^[0-$large_cpu_number]+$") ]; then
+                        THREAD_CPU1="-c $2";
+                        shift;
+                fi
+                if [ $(echo "$2" | grep -E "^[0-$large_cpu_number]+$") ]; then
+                        THREAD_CPU2="-c $2";
+                        shift;
+                fi
+                if [ $(echo "$2" | grep -E "^[0-$large_cpu_number]+$") ]; then
+                        THREAD_CPU3="-c $2";
+                        shift;
+                fi
+                ;;
+
+
+run_periodic_switcher() {
+... 
+       else
+		echo "spawning thread(s) on specified cpu(s)"
+                bl-agitator -n $THREAD_CPU0 $THREAD_CPU1 $THREAD_CPU2 $THREAD_CPU3 -s $INTR &
+                BL_AGITATOR_PID=$!
+        fi
+...
+}
+
+run_random_switcher() {
+...
+        else
+		echo "spawning thread(s) on specified cpu(s)"
+                bl-agitator -n $THREAD_CPU0 $THREAD_CPU1 $THREAD_CPU2 $THREAD_CPU3 -s $INTR &
+                BL_AGITATOR_PID=$!
+        fi
+
+...
+}
