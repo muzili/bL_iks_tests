@@ -1,4 +1,4 @@
-CROSS_COMPILE	?= arm-linux-gnueabi-
+CROSS_COMPILE	?= arm-linux-gnueabihf-
 CC		= $(CROSS_COMPILE)gcc
 SOURCES		= bl-agitator.c
 

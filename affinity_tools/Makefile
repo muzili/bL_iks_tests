@@ -1,4 +1,4 @@
-CROSS_COMPILE	?= arm-linux-gnueabi-
+CROSS_COMPILE	?= arm-linux-gnueabihf-
 CC		= $(CROSS_COMPILE)gcc
 SOURCES		= affinity_tools.c
 
